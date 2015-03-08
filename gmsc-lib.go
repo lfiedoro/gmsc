@@ -116,7 +116,6 @@ func (lib *Library) Update(attrs *[]mpd.Attrs) {
 		trackName := assignIfEmpty(entry["Track"])
 
 		if b, cart := lib.ContainsArtist(artistName); !b {
-			fmt.Println("did not have artist", artistName, "adding it")
 			// add artist to lib
 			artist := lib.AddArtist(artistName)
 			// add album to artist
@@ -124,13 +123,11 @@ func (lib *Library) Update(attrs *[]mpd.Attrs) {
 			// add song to album
 			album.AddSong(titleName, trackName, fileName)
 		} else if b, calb := cart.ContainsAlbum(albumName); !b {
-			fmt.Println("did not have album", albumName, "adding it")
 			// add album to artist
 			album := cart.AddAlbum(albumName)
 			// add song to album
 			album.AddSong(titleName, trackName, fileName)
 		} else if b, _ := calb.ContainsSong(titleName); !b {
-			fmt.Println("did not have song", titleName, "adding it")
 			// add song to album
 			calb.AddSong(titleName, trackName, fileName)
 		}
