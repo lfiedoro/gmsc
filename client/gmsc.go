@@ -67,6 +67,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+        gc.Echo(false)
 	defer gc.End()
 
 	var artists []string
@@ -75,7 +76,11 @@ func main() {
 	}
 
 	gmsc.Present(&artists, stdscr)
-	artistName := gmsc.Choose(&artists, stdscr)
+	artistName, err := gmsc.Choose(&artists, stdscr)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 
 	var artist gmsc.Artist
 	for _, art := range *lib.ArtistList {
@@ -91,7 +96,10 @@ func main() {
 	}
 
 	gmsc.Present(&albums, stdscr)
-	albumName := gmsc.Choose(&albums, stdscr)
+	albumName, err := gmsc.Choose(&albums, stdscr)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	log.Println("Artist:", artistName, "Album:", albumName)
 

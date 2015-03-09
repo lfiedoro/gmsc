@@ -40,25 +40,29 @@ func Present(list *[]string, win *gc.Window) {
 }
 
 // changle key presses
-func Choose(list *[]string, win *gc.Window) string {
+func Choose(list *[]string, win *gc.Window) (element string, err error) {
 	// If there is only one element, choose it by default
 	if len(*list) == 1 {
-		return (*list)[0]
+		return (*list)[0], nil
 	}
 
-	key := win.GetChar()
-	c := gc.KeyString(key)
-	i, err := strconv.Atoi(c)
-	if err != nil {
-		log.Fatal(err)
+	for {
+		key := win.GetChar()
+		c := gc.KeyString(key)
+		if c == "q" || c == "Q" {
+			log.Fatal("Quit!")
+		}
+
+		i, err := strconv.Atoi(c)
+		if err != nil {
+			log.Println(err)
+		} else if i >= 0 && i < len(*list) {
+			element = (*list)[i]
+			return element, nil
+		} else {
+			log.Println("Index out of bounds %d", key)
+		}
 	}
 
-	var element string
-	if i >= 0 && i < len(*list) {
-		element = (*list)[i]
-	} else {
-		log.Fatal("Index out of bounds %d", key)
-	}
-
-	return element
+	return "", err
 }
