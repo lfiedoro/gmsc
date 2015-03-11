@@ -60,9 +60,7 @@ func Choose(list *[]string, win *gc.Window) (element string, err error) {
 			element = (*list)[i]
 			return element, nil
 		} else {
-			log.Println("Index out of bounds %d", key)
+			log.Println("Index out of bounds:", key)
 		}
 	}
-
-	return "", err
 }

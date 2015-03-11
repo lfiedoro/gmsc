@@ -26,19 +26,10 @@ func (a Album) String() string {
 	return fmt.Sprintf("\n%v: %v", a.Name, a.SongList)
 }
 
-func (album *Album) ContainsSong(that string) (bool, *Song) {
-	for _, this := range *album.SongList {
-		if this.Name == that {
-			return true, &this
-		}
-	}
-	return false, nil
-}
-
 func (lib *Album) AddSong(songName string, songTrack string, songFile string) {
-    if lib.SongList == nil {
-        lib.SongList = new([]Song)
-    }
+	if lib.SongList == nil {
+		lib.SongList = new([]Song)
+	}
 	*lib.SongList = append(*lib.SongList, Song{songTrack, songFile, songName})
 }
 
@@ -62,9 +53,9 @@ func (artist *Artist) ContainsAlbum(that string) (bool, *Album) {
 }
 
 func (lib *Artist) AddAlbum(albumName string) *Album {
-    if lib.AlbumList == nil {
-        lib.AlbumList = new([]Album)
-    }
+	if lib.AlbumList == nil {
+		lib.AlbumList = new([]Album)
+	}
 	*lib.AlbumList = append(*lib.AlbumList, Album{albumName, nil})
 	return &((*lib.AlbumList)[len(*lib.AlbumList)-1])
 }
@@ -79,9 +70,9 @@ func (l Library) String() string {
 }
 
 func (lib *Library) ContainsArtist(that string) (bool, *Artist) {
-    if lib.ArtistList == nil {
-        return false, nil
-    }
+	if lib.ArtistList == nil {
+		return false, nil
+	}
 	for _, this := range *lib.ArtistList {
 		if this.Name == that {
 			return true, &this
@@ -91,9 +82,9 @@ func (lib *Library) ContainsArtist(that string) (bool, *Artist) {
 }
 
 func (lib *Library) AddArtist(artistName string) *Artist {
-    if lib.ArtistList == nil {
-        lib.ArtistList = new([]Artist)
-    }
+	if lib.ArtistList == nil {
+		lib.ArtistList = new([]Artist)
+	}
 	*lib.ArtistList = append(*lib.ArtistList, Artist{artistName, nil})
 	return &((*lib.ArtistList)[len(*lib.ArtistList)-1])
 }
@@ -127,10 +118,9 @@ func (lib *Library) Update(attrs *[]mpd.Attrs) {
 			album := cart.AddAlbum(albumName)
 			// add song to album
 			album.AddSong(titleName, trackName, fileName)
-		} else if b, _ := calb.ContainsSong(titleName); !b {
+		} else {
 			// add song to album
 			calb.AddSong(titleName, trackName, fileName)
 		}
-
 	}
 }

@@ -67,7 +67,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-        gc.Echo(false)
+	gc.Echo(false)
 	defer gc.End()
 
 	var artists []string
@@ -80,7 +80,6 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-
 
 	var artist gmsc.Artist
 	for _, art := range *lib.ArtistList {
